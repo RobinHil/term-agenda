@@ -1,5 +1,7 @@
 #include<iostream>
 #include<string>
+#include<filesystem>
+#include<system_error>
 
 #include"includes/agenda.hpp"
 
@@ -116,6 +118,18 @@ void mainMenu(){
 
 // main
 int main(){
+    std::error_code ec;
+    
+    // Création des dossiers nécessaires s'ils n'existent pas
+    if(!std::filesystem::exists("agenda")) {
+        std::filesystem::create_directory("agenda", ec);
+    }
+    if(!std::filesystem::exists("agenda/events")) {
+        std::filesystem::create_directory("agenda/events", ec);
+    }
+    if(!std::filesystem::exists("agenda/html")) {
+        std::filesystem::create_directory("agenda/html", ec);
+    }
 
     mainMenu();
 
